@@ -1,0 +1,12 @@
+* Description
+  This repo contains a self-contained reduced example of the issue reported in [[https://ghc.haskell.org/trac/ghc/ticket/12506][Trac ticket 12506]], a compile time regression in GHC 8.0.2. My testing indicates that it faithfully reproduces the regression and can be used in place of the original example.
+
+  While the code contains a lot of indirection the essence of what I'm attempting is not hard to explain; emulate hierarchical records to get something like prototypical method resolution at compile time. If a field is not found in a the current "record", the parent is searched and so until it hits the "base" record and gives up with a compile error.
+
+  The example has 3 type level records in a hierarchy each with 30 elements. It then performs a lookup on the 30th element in the farthest parent in the hierarchy (traversing 90 elements) and does that 1000 times. This is essentially the situation in the original example.
+
+  [[file:src/TypeFunctions.hs]] contains the type level traversal functions where [[file:src/TypeFunctions.hs#L46]] is the entry point that starts a type level search.
+
+  [[file:src/Hierarchy.hs]] contains type level descriptions of "records", there is a [[file:src/Hierarchy.hs#10][base]] and 4 records:  [[file:src/Hierarchy.hs#L13][A]], [[file:src/Hierarchy.hs#L50][B]], [[file:src/Hierarchy.hs#L80][C]] and [[file:src/Hierarchy.hs#L127][D]]. A,B and C contain 30 members emulated as [[file:src/Hierarchy.hs#L15][heterogenous lists]]. D inherits from A,B and C but contains [[file:src/Hierarchy.hs#L127][no members]]. It also contains a function, "a30", [[file:src/Hierarchy.hs#L6][that dispatches to the last element of A]] and should resolve to [[file:src/A.hs#L6][its implementation.]]
+
+  The example app then constructs something of type [[file:app/Main.hs#L10][D]] and calls "a30" on it 1000 times.
