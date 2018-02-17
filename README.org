@@ -13,14 +13,15 @@
 
 * Compile Time/Memory Usage Comparisons
   Below is a table of (very rough) compile times and memory for this app against the major releases of GHC going back to 7.8.4:
-  | GHC Version | Compile time (seconds) | Max. memory used (MB) |
-  |       7.8.4 | 5s                     |                    83 |
-  |      7.10.2 | 7s                     |                   517 |
-  |      7.10.3 | 8s                     |                   345 |
-  |       8.0.1 | 39s                    |                  1400 |
-  |       8.0.2 | 45s                    |                  1400 |
-  |       8.2.2 | 10s                    |                   200 |
+  |  GHC Version | Compile time (seconds) | Max. memory used (MB) |
+  |        7.8.4 | 5s                     |                    83 |
+  |       7.10.2 | 7s                     |                   517 |
+  |       7.10.3 | 8s                     |                   345 |
+  |        8.0.1 | 39s                    |                  1400 |
+  |        8.0.2 | 45s                    |                  1400 |
+  |        8.2.2 | 10s                    |                   200 |
+  | 8.4.0-alpha3 | 10s                    |                   230 |
 
   Machine specs:
-  4x Intel(R) Core(TM) i7-5600U CPU @ 2.60GHz
-  16GB RAM
+  - 4x Intel(R) Core(TM) i7-5600U CPU @ 2.60GHz
+  - 16GB RAM
